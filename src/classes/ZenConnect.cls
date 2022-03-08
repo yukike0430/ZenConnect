@@ -17,16 +17,8 @@ global class ZenConnect {
         List<Task> tasks = [select  Id , subject from task order by LastModifiedDate desc limit 1];
 
         HttpRequest req = new HttpRequest();
-        req.setEndpoint('https://pdi3cl3ctdemo1637542137.zendesk.com/api/v2/tickets.json');
+        req.setEndpoint('callout:zendeskapi/v2/tickets.json');
         req.setMethod('POST');
-        
-        String username = 'matsuo+admin@eclect.co.jp';
-        String password = 'VZHRFRiVP7DAYoyCNqjUbvWU';
-     
-        Blob headerValue = Blob.valueOf(username + ':' + password);
-        String authorizationHeader = 'Basic ' +
-        EncodingUtil.base64Encode(headerValue);
-        req.setHeader('Authorization', authorizationHeader);
 
         req.setHeader('Content-Type', 'application/json');
 
@@ -48,19 +40,10 @@ global class ZenConnect {
         List<Task> tasks = [select  Id , subject,owner.email from task order by LastModifiedDate desc limit 3];
 
         HttpRequest req = new HttpRequest();
-        //req.setEndpoint('https://pdi3cl3ctdemo1637542137.zendesk.com/api/v2/tickets/create_many.json');
-        
+
         req.setEndpoint('callout:zendeskapi/tickets/create_many.json');
         req.setMethod('POST');
         
-        //String username = 'matsuo+admin@eclect.co.jp';
-        //String password = 'VZHRFRiVP7DAYoyCNqjUbvWU';
-     
-        //Blob headerValue = Blob.valueOf(username + ':' + password);
-       // String authorizationHeader = 'Basic ' +
-        //EncodingUtil.base64Encode(headerValue);
-        //req.setHeader('Authorization', authorizationHeader);
-
         req.setHeader('Content-Type', 'application/json');
 
         List<ZenTiket> tickets = new List<ZenTiket>();
